@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react"
 import Header from "./components/header"
+import Main from "./components/main"
 import Footer from "./components/footer"
 import './App.css';
 
 function App() {
     
-    return (
+    return(
         <div className="App">
-        <Header/>
-            <main className="App-main">
-                <h3>Put a new form here </h3>
-            </main>
-        <Footer/>
+            <Header/>
+            <Main/>
+            <Footer/>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
