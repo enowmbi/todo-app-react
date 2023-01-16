@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Header from "./components/header"
+import Footer from "./components/footer"
 import './App.css';
 
 function App() {
@@ -10,9 +11,7 @@ function App() {
             <main className="App-main">
                 <h3>Put a new form here </h3>
             </main>
-            <footer className="App-footer">
-                <h3>put footer here</h3>
-            </footer>
+        <Footer/>
         </div>
     );
 }
