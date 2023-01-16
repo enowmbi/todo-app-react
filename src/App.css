@@ -35,6 +35,13 @@
   /* color: white; */
 }
 
+.App-task{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  color: white;
+}
+
 .App-footer {
   background-color: #282c34;
   min-height: 5vh;

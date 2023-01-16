@@ -1,7 +1,15 @@
+import Tasks from "../components/tasks"
+import NewTask from "../components/newtask"
+
 const Main = ()=>{
+    const handleAddTask =() =>{
+      alert('AddTask has been clicked')  
+    }
+
     return(
         <main className="App-main">
-            <h3>Put a new form here </h3>
+          <NewTask addTask={() => handleAddTask()}/>
+          <Tasks/>
         </main>
     )
 }
