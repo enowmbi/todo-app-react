@@ -1,11 +1,20 @@
+import {useRef} from "react"
+
 const NewTask =(props)=>{
 
-  return(
-      <div>
-          <input type="text"/>
-          <button onClick={props.addTask}>Add Task</button>
-      </div>
-  )
+    const taskNameRef = useRef()
+
+    const addTask =()=>{
+        props.addTask(taskNameRef.current.value)
+        taskNameRef.current.value =""
+    }
+
+    return(
+        <div>
+            <input type="text" ref={taskNameRef} />
+            <button onClick={addTask}>Add Task</button>
+        </div>
+    )
 }
 
 export default NewTask

@@ -1,8 +1,10 @@
 const Task =()=>{
     return(
         <div className="App-task">
-            <input type="checkbox" checked/>
-            <h5>This is a task</h5>
+        <label>
+            <input type="checkbox" checked={true}/>
+            {"Task name / description goes here"}
+        </label>
         </div>
     )
 }
