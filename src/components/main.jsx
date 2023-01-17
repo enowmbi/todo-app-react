@@ -6,7 +6,7 @@ const Main = ()=>{
     const [tasks, setTasks] = useState([])
 
     const handleAddTask =(e) =>{
-        setTasks([...tasks, e])
+        setTasks((prevTasks) => { return [...prevTasks, {id: 1, name: e, completed: false}]})
     }
 
     return(

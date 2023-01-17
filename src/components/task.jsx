@@ -1,9 +1,9 @@
-const Task =()=>{
+const Task =(props)=>{
     return(
         <div className="App-task">
         <label>
-            <input type="checkbox" checked={true}/>
-            {"Task name / description goes here"}
+            <input type="checkbox" checked={props.checked}/>
+            {props.name}
         </label>
         </div>
     )

@@ -5,8 +5,9 @@ const NewTask =(props)=>{
     const taskNameRef = useRef()
 
     const addTask =()=>{
+        if(taskNameRef.current.value === "") return
         props.addTask(taskNameRef.current.value)
-        taskNameRef.current.value =""
+        taskNameRef.current.value =null
     }
 
     return(
