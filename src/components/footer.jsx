@@ -1,7 +1,7 @@
 const Footer = () =>{
     return(
         <footer className="App-footer">
-            <h3>put footer here</h3>
+            <h5>&copy; Enow Mbi</h5>
         </footer>
     )
 }
