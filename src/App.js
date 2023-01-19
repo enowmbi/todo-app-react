@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react"
 import Header from "./components/header"
-import Main from "./components/main"
 import Footer from "./components/footer"
 import './App.css';
 
@@ -9,7 +7,8 @@ function App() {
     return(
         <div className="App">
             <Header/>
-            <Main/>
+            <main>
+            </main>
             <Footer/>
         </div>
     )
