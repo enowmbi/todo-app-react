@@ -1,5 +1,5 @@
 import Header from "./components/header"
-import Task from "./components/task"
+import Tasks from "./components/tasks"
 import Footer from "./components/footer"
 import { useState, useRef } from "react"
 import { v4 } from "uuid"
@@ -26,6 +26,12 @@ function App() {
     const handleChange =()=>{
       setNewTask(newTaskRef.current.value)
     }
+
+    const handleDelete =(id)=>{
+        const filteredTasks = tasks.filter((task)=>task.id !== id)
+        console.log("Deleting task with id: ", id)
+        setTasks(filteredTasks)
+    }
     
     return(
         <div className="App">
@@ -34,16 +40,8 @@ function App() {
                 <form className="New-Task" onSubmit={handleSubmit}>
                     <input type="text" ref={newTaskRef} value={newTask} onChange={handleChange}/>
                     <button className="Add-button" onClick={handleSubmit}>+</button>
-                </form>
-                <ol>
-                 {tasks.map((task) =>{
-                     return(<li><Task 
-                         key={task.id} 
-                         name={task.name}
-                         completed={task.completed}
-                     /></li>)
-                 })}
-               </ol>
+             </form>
+            { tasks.length ? (<Tasks tasks={tasks} handleDelete={handleDelete} />): (<h3>No tasks found !</h3>) }
             </main>
             <Footer/>
         </div>

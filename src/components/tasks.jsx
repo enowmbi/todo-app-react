@@ -1,24 +1,21 @@
 import Task from "../components/task"
-import { useState } from "react"
 
-const Tasks =(props)=>{
-
-    const handleChange=(id)=>{
-    }
+const Tasks =({ tasks, handleDelete })=>{
 
   return(
-      <div>
+      <article>
           <h4>These are my tasks</h4>
-          {props.tasks.map((task)=>{
-              return(<Task 
-                  key={task.id} 
-                  name={task.title} 
-                  checked={task.complete}
-                  onChange={handleChange(task.id)}/>
-              )
-          })}
-          <hr/>
-      </div>
+                <ol>
+                 {tasks.map((task) =>{
+                     return(<li><Task 
+                         key={task.id} 
+                         name={task.name}
+                         completed={task.completed}
+                         handleDelete={()=>handleDelete(task.id)}
+                     /></li>)
+                 })}
+               </ol>
+      </article>
   )
 }
 export default Tasks
