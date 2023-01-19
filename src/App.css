@@ -35,6 +35,21 @@
   /* color: white; */
 }
 
+.New-Task{
+   margin: 10px;
+   display: flex;
+   justify-content: center;
+}
+.New-Task input[type="text"]{
+   width: 50%;
+   font-size: 20px;
+}
+
+.Add-button:hover{
+   background-color: green;
+   cursor: pointer;
+}
+
 .App-task{
   display: flex;
   align-items: center;

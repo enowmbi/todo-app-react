@@ -1,9 +1,12 @@
-const Task =(props)=>{
+const Task =({completed, name })=>{
     return(
         <div className="App-task">
         <label>
-            <input type="checkbox" checked={props.checked} onChange={props.onChange}/>
-            {props.name}
+            <input 
+              type="checkbox" 
+              checked={completed} 
+              />
+            {name}
         </label>
         </div>
     )
