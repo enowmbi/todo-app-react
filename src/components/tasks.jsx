@@ -1,6 +1,6 @@
 import Task from "../components/task"
 
-const Tasks =({ tasks, handleDelete })=>{
+const Tasks =({ tasks, handleDelete, handleCheckChanged })=>{
 
   return(
       <article>
@@ -12,6 +12,7 @@ const Tasks =({ tasks, handleDelete })=>{
                          name={task.name}
                          completed={task.completed}
                          handleDelete={()=>handleDelete(task.id)}
+                         handleCheckChanged={()=>handleCheckChanged(task.id)}
                      /></li>)
                  })}
                </ol>

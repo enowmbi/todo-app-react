@@ -32,6 +32,15 @@ function App() {
         console.log("Deleting task with id: ", id)
         setTasks(filteredTasks)
     }
+
+    const handleCheckChanged =(id)=>{
+      console.log("checked changed for :", id) 
+      const updatedTasks = tasks.map((task) =>{
+         return task.id === id ? {...task, completed: (!task.completed)} : task
+      })
+     setTasks(updatedTasks)
+     console.log("updated tasks: ", updatedTasks)
+    }
     
     return(
         <div className="App">
@@ -41,7 +50,12 @@ function App() {
                     <input type="text" ref={newTaskRef} value={newTask} onChange={handleChange}/>
                     <button className="Add-button" onClick={handleSubmit}>+</button>
              </form>
-            { tasks.length ? (<Tasks tasks={tasks} handleDelete={handleDelete} />): (<h3>No tasks found !</h3>) }
+            { tasks.length ? (
+                <Tasks 
+                tasks={tasks} 
+                handleDelete={handleDelete}
+                handleCheckChanged={handleCheckChanged}
+                />): (<h3>No tasks found !</h3>) }
             </main>
             <Footer/>
         </div>
