@@ -1,13 +1,13 @@
 import Header from "./components/header"
 import Tasks from "./components/tasks"
 import Footer from "./components/footer"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
 import './App.css';
 
 function App() {
-
-    const [tasks, setTasks] = useState([])
+    const KEYSTRING = "todo_list_react"
+    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem(KEYSTRING)) || [])
     const [newTask, setNewTask] = useState("")
 
     const newTaskRef = useRef()
@@ -26,6 +26,11 @@ function App() {
     const handleChange =()=>{
       setNewTask(newTaskRef.current.value)
     }
+
+    useEffect(() =>{
+        localStorage.setItem(KEYSTRING, JSON.stringify(tasks))
+    }, [tasks])
+
 
     const handleDelete =(id)=>{
         const filteredTasks = tasks.filter((task)=>task.id !== id)
