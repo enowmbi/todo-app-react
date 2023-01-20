@@ -4,18 +4,16 @@ const Tasks =({ tasks, handleDelete, handleCheckChanged })=>{
 
   return(
       <article>
-          <h4>These are my tasks</h4>
-                <ol>
+          <h2>These are my tasks</h2>
                  {tasks.map((task) =>{
-                     return(<li><Task 
+                     return(<Task 
                          key={task.id} 
                          name={task.name}
                          completed={task.completed}
                          handleDelete={()=>handleDelete(task.id)}
                          handleCheckChanged={()=>handleCheckChanged(task.id)}
-                     /></li>)
+                     />)
                  })}
-               </ol>
       </article>
   )
 }

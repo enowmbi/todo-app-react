@@ -1,15 +1,21 @@
+import { FaTrashAlt } from "react-icons/fa"
+
 const Task =({ completed, name, handleDelete, handleCheckChanged })=>{
     return(
-        <div className="App-task">
+        <div className="task">
         <label>
             <input 
                type="checkbox" 
                checked={completed} 
-               onChange={handleCheckChanged} 
+               onChange={handleCheckChanged}
             />
-            {name}
+            <span>{name}</span>
         </label>
-        <button onClick={handleDelete}> Delete </button>
+        <FaTrashAlt
+            role="button" 
+            aria-label="Add task" 
+            onClick={handleDelete}
+        />
         </div>
     )
 }
