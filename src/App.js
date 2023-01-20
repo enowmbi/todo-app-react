@@ -65,10 +65,15 @@ function App() {
       setNewTask(newTaskRef.current.value)
     }
 
-    const handleDelete =(id)=>{
+    const handleDelete = async (id)=>{
         const filteredTasks = tasks.filter((task)=>task.id !== id)
         console.log("Deleting task with id: ", id)
         setTasks(filteredTasks)
+
+        const deleteOptions = { method: 'DELETE' }
+
+        const result = await apiRequest(`${BASE_URL}/${id}`, deleteOptions)
+        if(result) setFetchError(result)
     }
 
     const handleCheckChanged = async (id)=>{
