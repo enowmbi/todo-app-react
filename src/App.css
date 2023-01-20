@@ -19,20 +19,34 @@
   color: white;
 }
 
-.New-Task{
+.new-task{
    margin: 10px;
    display: flex;
    justify-content: center;
+   
 }
 
-.New-Task input[type="text"]{
+.new-task input[type="text"]{
    width: 50%;
    font-size: 20px;
+   padding: 10px;
+   height: 25px;
 }
 
-.Add-button:hover{
+.new-task-button{
+  width: 48px;
+}
+
+.new-task-button:hover{
    background-color: green;
    cursor: pointer;
+}
+
+.task-search{
+  width: 53%;
+  font-size: 20px;
+  padding: 10px;
+  height: 25px;
 }
 
 .task{

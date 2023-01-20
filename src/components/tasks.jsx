@@ -4,7 +4,7 @@ const Tasks =({ tasks, handleDelete, handleCheckChanged })=>{
 
   return(
       <article>
-          <h2>These are my tasks</h2>
+          <h2>{tasks.length} {tasks.length === 1 ? "Task" : "Tasks" }</h2>
                  {tasks.map((task) =>{
                      return(<Task 
                          key={task.id} 

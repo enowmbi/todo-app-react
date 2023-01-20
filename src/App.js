@@ -1,6 +1,7 @@
 import Header from "./components/header"
-import Tasks from "./components/tasks"
 import NewTask from "./components/new_task"
+import Search from "./components/search"
+import Tasks from "./components/tasks"
 import Footer from "./components/footer"
 import { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
@@ -10,6 +11,7 @@ function App() {
     const KEYSTRING = "todo_list_react"
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem(KEYSTRING)) || [])
     const [newTask, setNewTask] = useState("")
+    const [searchText, setSearchText] = useState("")
 
     const newTaskRef = useRef()
 
@@ -33,7 +35,6 @@ function App() {
       setNewTask(newTaskRef.current.value)
     }
 
-
     const handleDelete =(id)=>{
         const filteredTasks = tasks.filter((task)=>task.id !== id)
         console.log("Deleting task with id: ", id)
@@ -48,6 +49,11 @@ function App() {
      setTasks(updatedTasks)
      console.log("updated tasks: ", updatedTasks)
     }
+
+    const handleSearchTextChange =(e)=>{
+        setSearchText(e.target.value)
+    }
+
     
     return(
         <div className="App">
@@ -58,10 +64,14 @@ function App() {
               value={newTask} 
               onChange={handleChange}
               handleSubmit={handleSubmit} 
-           />
+            />
+            <Search 
+              handleSearchTextChange={handleSearchTextChange}
+              value={searchText}
+            />
             { tasks.length ? (
                 <Tasks 
-                tasks={tasks} 
+                tasks={tasks.filter((task) =>{ return task.name.toLowerCase().includes(searchText.toLowerCase())})} 
                 handleDelete={handleDelete}
                 handleCheckChanged={handleCheckChanged}
                 />): (<h3>No tasks found !</h3>) }
