@@ -1,5 +1,6 @@
 import Header from "./components/header"
 import Tasks from "./components/tasks"
+import NewTask from "./components/new_task"
 import Footer from "./components/footer"
 import { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
@@ -12,7 +13,12 @@ function App() {
 
     const newTaskRef = useRef()
 
+    useEffect(() =>{
+        localStorage.setItem(KEYSTRING, JSON.stringify(tasks))
+    }, [tasks])
+
     const handleSubmit =(e)=>{
+    console.log("submit button clicked", e)
       e.preventDefault()
       const myNewTask = {id: v4(), name: newTaskRef.current.value, completed: false }
       const newTasks = [...tasks, myNewTask]
@@ -26,10 +32,6 @@ function App() {
     const handleChange =()=>{
       setNewTask(newTaskRef.current.value)
     }
-
-    useEffect(() =>{
-        localStorage.setItem(KEYSTRING, JSON.stringify(tasks))
-    }, [tasks])
 
 
     const handleDelete =(id)=>{
@@ -51,10 +53,12 @@ function App() {
         <div className="App">
             <Header/>
             <main>
-                <form className="New-Task" onSubmit={handleSubmit}>
-                    <input type="text" ref={newTaskRef} value={newTask} onChange={handleChange}/>
-                    <button className="Add-button" onClick={handleSubmit}>+</button>
-             </form>
+            <NewTask
+              newTaskRef={newTaskRef} 
+              value={newTask} 
+              onChange={handleChange}
+              handleSubmit={handleSubmit} 
+           />
             { tasks.length ? (
                 <Tasks 
                 tasks={tasks} 
