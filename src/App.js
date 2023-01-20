@@ -38,27 +38,27 @@ function App() {
     }, [])
 
     const handleSubmit = async (e)=>{
-    console.log("submit button clicked", e)
-      e.preventDefault()
-      const myNewTask = {id: v4(), name: newTaskRef.current.value, completed: false }
-      const newTasks = [...tasks, myNewTask]
-      setTasks(newTasks)
-      console.log("New task created upon submission of form: ", myNewTask)
-      
-      const createOptions = {
-        method: 'POST',
-        headers:{
-         'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(myNewTask)
-      }
+        console.log("submit button clicked", e)
+        e.preventDefault()
+        const myNewTask = {id: v4(), name: newTaskRef.current.value, completed: false }
+        const newTasks = [...tasks, myNewTask]
+        setTasks(newTasks)
+        console.log("New task created upon submission of form: ", myNewTask)
+
+        const createOptions = {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(myNewTask)
+        }
 
         const result = await apiRequest(BASE_URL, createOptions)
         if(result) setFetchError(result)
 
-      newTaskRef.current.value = ""
-      setNewTask(newTaskRef.current.value)
-      newTaskRef.current.focus()
+        newTaskRef.current.value = ""
+        setNewTask(newTaskRef.current.value)
+        newTaskRef.current.focus()
     }
 
     const handleChange =()=>{
@@ -71,13 +71,27 @@ function App() {
         setTasks(filteredTasks)
     }
 
-    const handleCheckChanged =(id)=>{
-      console.log("checked changed for :", id) 
-      const updatedTasks = tasks.map((task) =>{
-         return task.id === id ? {...task, completed: (!task.completed)} : task
-      })
-     setTasks(updatedTasks)
-     console.log("updated tasks: ", updatedTasks)
+    const handleCheckChanged = async (id)=>{
+        console.log("checked changed for :", id) 
+        const updatedTasks = tasks.map((task) =>{
+            return task.id === id ? {...task, completed: (!task.completed)} : task
+        })
+        setTasks(updatedTasks)
+
+        const task = updatedTasks.filter((task)=> task.id === id)
+
+        const updateOptions ={
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ completed: task[0].completed })
+        }
+
+        const result = await apiRequest(`${BASE_URL}/${id}`, updateOptions)
+        if(result) setFetchError(result)
+
+        console.log("updated tasks: ", updatedTasks)
     }
 
     const handleSearchTextChange =(e)=>{
