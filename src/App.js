@@ -12,6 +12,8 @@ function App() {
     const [tasks, setTasks] = useState([])
     const [newTask, setNewTask] = useState("")
     const [searchText, setSearchText] = useState("")
+    const [fetchError, setFetchError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const newTaskRef = useRef()
 
@@ -19,11 +21,15 @@ function App() {
         const fetchTasks = async ()=>{
             try{
                 const response = await fetch(BASE_URL)
+                if(!response.ok) throw Error("Did not receive expected data")
                 const fetchedTasks = await response.json()
                 console.log("Fetched Tasks: ", fetchedTasks)
                 setTasks(fetchedTasks)
+                setFetchError(null)
             }catch(err){
-                console.log(err.stack)
+                setFetchError(err.message)
+            }finally{
+                setIsLoading(false)
             }
         }
 
@@ -80,12 +86,14 @@ function App() {
               handleSearchTextChange={handleSearchTextChange}
               value={searchText}
             />
-            { tasks.length ? (
+            {fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
+            { isLoading && <p>Loading ....</p>}
+            { !fetchError && !isLoading && tasks.length ? (
                 <Tasks 
                 tasks={tasks.filter((task) =>{ return task.name.toLowerCase().includes(searchText.toLowerCase())})} 
                 handleDelete={handleDelete}
                 handleCheckChanged={handleCheckChanged}
-                />): (<h3>No tasks found !</h3>) }
+                />): ( !isLoading && <h3>No tasks found !</h3> ) }
             </main>
             <Footer/>
         </div>
