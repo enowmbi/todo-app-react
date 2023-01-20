@@ -8,16 +8,27 @@ import { v4 } from "uuid"
 import './App.css';
 
 function App() {
-    const KEYSTRING = "todo_list_react"
-    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem(KEYSTRING)) || [])
+    const BASE_URL = "http://localhost:3500/tasks"
+    const [tasks, setTasks] = useState([])
     const [newTask, setNewTask] = useState("")
     const [searchText, setSearchText] = useState("")
 
     const newTaskRef = useRef()
 
-    useEffect(() =>{
-        localStorage.setItem(KEYSTRING, JSON.stringify(tasks))
-    }, [tasks])
+    useEffect(()=>{
+        const fetchTasks = async ()=>{
+            try{
+                const response = await fetch(BASE_URL)
+                const fetchedTasks = await response.json()
+                console.log("Fetched Tasks: ", fetchedTasks)
+                setTasks(fetchedTasks)
+            }catch(err){
+                console.log(err.stack)
+            }
+        }
+
+        fetchTasks()
+    }, [])
 
     const handleSubmit =(e)=>{
     console.log("submit button clicked", e)
