@@ -3,6 +3,7 @@ import NewTask from "./components/new_task"
 import Search from "./components/search"
 import Tasks from "./components/tasks"
 import Footer from "./components/footer"
+import apiRequest from "./apiRequest"
 import { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
 import './App.css';
@@ -36,13 +37,25 @@ function App() {
         fetchTasks()
     }, [])
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = async (e)=>{
     console.log("submit button clicked", e)
       e.preventDefault()
       const myNewTask = {id: v4(), name: newTaskRef.current.value, completed: false }
       const newTasks = [...tasks, myNewTask]
       setTasks(newTasks)
       console.log("New task created upon submission of form: ", myNewTask)
+      
+      const createOptions = {
+        method: 'POST',
+        headers:{
+         'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(myNewTask)
+      }
+
+        const result = await apiRequest(BASE_URL, createOptions)
+        if(result) setFetchError(result)
+
       newTaskRef.current.value = ""
       setNewTask(newTaskRef.current.value)
       newTaskRef.current.focus()
